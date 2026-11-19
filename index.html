@@ -1,342 +1,171 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SerComet – File Transfer Tool for PC & Pocket Computers</title>
-    <style>
-        :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-main: #c9d1d9;
-            --text-muted: #8b949e;
-            --accent: #3fb950; /* Klasyczna zieleń terminala */
-            --accent-hover: #2ea043;
-            --border: #30363d;
-            --code-bg: #010409;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SerComet – file transfer tool for PC and pocket computers</title>
+<meta name="description" content="SerComet moves BASIC programs between your PC and Sharp, Casio, TRS-80 and NEC pocket computers over a serial port. Free for personal, non-commercial and educational use.">
+<meta property="og:title" content="SerComet – file transfer tool for PC and pocket computers">
+<meta property="og:description" content="Send and receive BASIC programs between a Windows PC and Sharp, Casio, TRS-80 and NEC pocket computers.">
+<meta property="og:image" content="https://ante1000.github.io/img/imag1.jpg">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<style>
+  :root{
+    --bg:#0b1426; --bg2:#101c36; --card:#14213f; --line:#25365e;
+    --text:#e8edf8; --muted:#9fb0d0; --gold:#ffc83d; --gold2:#ffdf85; --blue:#4aa3ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  a{color:var(--gold);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  header{position:sticky;top:0;z-index:5;background:rgba(11,20,38,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.2rem;color:var(--text)}
+  .brand img{width:34px;height:34px}
+  .nav a.link{color:var(--muted);margin-left:22px;font-size:.95rem}
+  .nav a.link:hover{color:var(--gold);text-decoration:none}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-        }
+  .hero{position:relative;overflow:hidden}
+  .hero .bg{position:absolute;inset:0;background:url(img/imag1.jpg) center/cover no-repeat;opacity:.38;filter:saturate(1.1)}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,20,38,.35) 0%,rgba(11,20,38,.78) 62%,var(--bg) 100%)}
+  .hero .inner{position:relative;z-index:1;text-align:center;padding:96px 0 110px}
+  .badge{display:inline-block;border:1px solid rgba(255,200,61,.5);color:var(--gold2);background:rgba(255,200,61,.08);border-radius:99px;padding:4px 14px;font-size:.85rem;margin-bottom:22px}
+  h1{font-size:clamp(2.4rem,6vw,4rem);line-height:1.1;letter-spacing:-.5px;margin-bottom:16px}
+  h1 span{color:var(--gold)}
+  .lead{font-size:clamp(1.05rem,2.2vw,1.3rem);color:#c5d2ec;max-width:700px;margin:0 auto 34px}
+  .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-block;padding:13px 26px;border-radius:10px;font-weight:700;font-size:1rem;transition:transform .15s,background .15s}
+  .btn:hover{transform:translateY(-2px);text-decoration:none}
+  .btn.primary{background:var(--gold);color:#201800}
+  .btn.primary:hover{background:var(--gold2)}
+  .btn.ghost{border:1px solid var(--line);color:var(--text);background:rgba(20,33,63,.7)}
+  .btn.ghost:hover{border-color:var(--gold)}
 
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+  section{padding:76px 0}
+  section.alt{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  h2{text-align:center;font-size:clamp(1.7rem,3.6vw,2.3rem);margin-bottom:10px}
+  .sub{text-align:center;color:var(--muted);max-width:640px;margin:0 auto 44px}
 
-        /* Nawigacja */
-        header {
-            border-bottom: 1px solid var(--border);
-            padding: 20px 0;
-        }
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;transition:border-color .2s,transform .2s}
+  .card:hover{border-color:var(--gold);transform:translateY(-3px)}
+  .ico{font-size:1.9rem;display:block;margin-bottom:12px}
+  .card h3{font-size:1.15rem;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:.97rem}
 
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  .machines{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+  .machine{background:linear-gradient(160deg,#16264a,#101c36);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .machine b{display:block;color:var(--gold2);margin-bottom:2px}
+  .machine span{color:var(--muted);font-size:.92rem}
 
-        .logo {
-            font-family: "Courier New", Courier, monospace;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+  .split{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
+  .split img{width:100%;border-radius:14px;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.45)}
+  .split h2{text-align:left}
+  .split p{color:#c5d2ec;margin-bottom:14px}
+  .ticks{list-style:none}
+  .ticks li{padding-left:28px;position:relative;margin-bottom:9px;color:#c5d2ec}
+  .ticks li::before{content:"\2605";position:absolute;left:0;color:var(--gold)}
+  @media(max-width:780px){.split{grid-template-columns:1fr}.split h2{text-align:center}}
 
-        .logo span {
-            color: var(--text-main);
-        }
-
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        /* Sekcja Hero */
-        .hero {
-            text-align: center;
-            padding: 80px 0 60px;
-        }
-
-        .badge {
-            display: inline-block;
-            background-color: rgba(63, 185, 80, 0.15);
-            color: var(--accent);
-            border: 1px solid rgba(63, 185, 80, 0.4);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-family: monospace;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-            letter-spacing: -0.5px;
-        }
-
-        .subtitle {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 650px;
-            margin: 0 auto 35px;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background-color: var(--accent);
-            color: #0d1117;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: var(--card-bg);
-            color: var(--text-main);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--text-muted);
-        }
-
-        /* Okno terminala */
-        .terminal-window {
-            background-color: var(--code-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            max-width: 700px;
-            margin: 50px auto 0;
-            text-align: left;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-        }
-
-        .terminal-header {
-            background-color: var(--card-bg);
-            padding: 10px 15px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .dot.red { background-color: #ff5f56; }
-        .dot.yellow { background-color: #ffbd2e; }
-        .dot.green { background-color: #27c93f; }
-
-        .terminal-title {
-            margin-left: 10px;
-            font-family: monospace;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .terminal-body {
-            padding: 20px;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 0.95rem;
-            color: #e6edf3;
-            overflow-x: auto;
-        }
-
-        .prompt { color: var(--accent); }
-        .comment { color: var(--text-muted); }
-
-        /* Funkcje (Features) */
-        .features {
-            padding: 60px 0;
-            border-top: 1px solid var(--border);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            color: #ffffff;
-            margin-bottom: 40px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 25px;
-            transition: border-color 0.2s;
-        }
-
-        .card:hover {
-            border-color: var(--accent);
-        }
-
-        .card-icon {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .card h3 {
-            color: #ffffff;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Obsługiwane urządzenia */
-        .devices {
-            padding: 60px 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .device-tags {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 25px;
-        }
-
-        .tag {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 0.95rem;
-            color: var(--text-main);
-        }
-
-        /* Stopka */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 30px 0;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 40px;
-        }
-
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
-            .nav-links { display: none; }
-        }
-    </style>
+  .cta{text-align:center}
+  .cta p{color:var(--muted);margin:0 auto 26px;max-width:600px}
+  footer{padding:34px 0 46px;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
+  .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="container nav-content">
-            <a href="#" class="logo">&gt;_ <span>SerComet</span></a>
-            <nav class="nav-links">
-                <a href="#features">Funkcje</a>
-                <a href="#devices">Kompatybilność</a>
-                <a href="https://github.com" target="_blank">GitHub</a>
-            </nav>
-        </div>
-    </header>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="img/sercomet_icon.png" alt="">SerComet</a>
+    <nav>
+      <a class="link" href="#features">Features</a>
+      <a class="link" href="#computers">Computers</a>
+      <a class="link" href="https://github.com/Ante1000/SerComet_transfer_tool_for_pockets">GitHub</a>
+      <a class="link" href="https://www.youtube.com/@anteamber">YouTube</a>
+    </nav>
+  </div>
+</header>
 
-    <main>
-        <section class="hero container">
-            <div class="badge">v1.0.0 • Open Source • RS-232 / USB-Serial</div>
-            <h1>SerComet</h1>
-            <p class="subtitle">
-                Szybkie i niezawodne narzędzie do przesyłania plików między komputerami PC a klasycznymi komputerami kieszonkowymi (Pocket Computers) przez port szeregowy.
-            </p>
-            <div class="btn-group">
-                <a href="https://github.com/releases" class="btn btn-primary">Pobierz najnowszą wersję</a>
-                <a href="https://github.com" class="btn btn-secondary">Zobacz kod źródłowy</a>
-            </div>
+<div class="hero" id="top">
+  <div class="bg"></div>
+  <div class="wrap inner">
+    <span class="badge">Version 1.3 &middot; for Windows</span>
+    <h1>Your programs, <span>across the cable</span></h1>
+    <p class="lead">SerComet moves BASIC programs between your PC and your pocket computer: Sharp, Casio, TRS-80, NEC and more. No cassette tape, no retyping.</p>
+    <div class="btns">
+      <a class="btn primary" href="https://github.com/Ante1000/SerComet_transfer_tool_for_pockets">Get SerComet</a>
+      <a class="btn ghost" href="https://www.youtube.com/@anteamber">Watch on YouTube</a>
+    </div>
+  </div>
+</div>
 
-            <div class="terminal-window">
-                <div class="terminal-header">
-                    <div class="dot red"></div>
-                    <div class="dot yellow"></div>
-                    <div class="dot green"></div>
-                    <span class="terminal-title">sercomet — bash</span>
-                </div>
-                <div class="terminal-body">
-                    <p><span class="comment"># Wysyłanie programu BASIC na komputer kieszonkowy</span></p>
-                    <p><span class="prompt">$</span> sercomet send --port COM3 --baud 9600 program.bas</p>
-                    <p>Łączenie z portem COM3 (9600 bps, 8N1)...</p>
-                    <p>Wysyłanie pliku: [####################] 100% (4.2 KB)</p>
-                    <p style="color: var(--accent);">✔ Transfer zakończony sukcesem w 4.3s!</p>
-                </div>
-            </div>
-        </section>
+<section id="features">
+  <div class="wrap">
+    <h2>Made for people who love small computers</h2>
+    <p class="sub">A simple window, one serial cable, and your old pocket machine joins the modern desktop.</p>
+    <div class="grid">
+      <div class="card"><span class="ico">&#9889;</span><h3>Send and receive</h3><p>Pick a program, press Send; or start Save on the pocket computer and SerComet files it for you, named after the program.</p></div>
+      <div class="card"><span class="ico">&#128295;</span><h3>Built-in converter</h3><p>Edit your BASIC as plain text on the PC. SerComet turns it into the pocket computer's own format and back again.</p></div>
+      <div class="card"><span class="ico">&#128161;</span><h3>Helps when things go wrong</h3><p>Garbage on the line? SerComet tells you the baud rate is wrong and whether to raise or lower it.</p></div>
+      <div class="card"><span class="ico">&#128194;</span><h3>Your own folders</h3><p>A folder for every machine, drag and drop files in, preview a program before you send it.</p></div>
+      <div class="card"><span class="ico">&#128250;</span><h3>Live status</h3><p>Flashing arrows and LEDs show the port and the traffic, at a speed that follows the baud rate.</p></div>
+      <div class="card"><span class="ico">&#127873;</span><h3>Free to use</h3><p>Free for personal, non-commercial and educational use.</p></div>
+    </div>
+  </div>
+</section>
 
-        <section id="features" class="features container">
-            <h2 class="section-title">Dlaczego SerComet?</h2>
-            <div class="grid">
-                <div class="card">
-                    <span class="card-icon">⚡</span>
-                    <h3>Prosta obsługa</h3>
-                    <p>Intuicyjny interfejs pozwalający na błyskawiczne wysyłanie i odbieranie kodów źródłowych w języku BASIC oraz plików binarnych.</p>
-                </div>
-                <div class="card">
-                    <span class="card-icon">🔌</span>
-                    <h3>Pełna kontrola transmisji</h3>
-                    <p>Konfigurowalna prędkość (Baud rate), bity parzystości, sterowanie przepływem (XON/XOFF, RTS/CTS) oraz opóźnienia znaków.</p>
+<section class="alt" id="computers">
+  <div class="wrap">
+    <h2>One tool, many machines</h2>
+    <p class="sub">Choose your computer in the Target box and SerComet sets up the right way to talk to it.</p>
+    <div class="machines">
+      <div class="machine"><b>Sharp PC-1500</b><span>Software serial or RS-232</span></div>
+      <div class="machine"><b>Sharp PC-1600</b><span>Software serial or RS-232</span></div>
+      <div class="machine"><b>Other Sharp</b><span>Pocket computers with the 15-pin connector</span></div>
+      <div class="machine"><b>Casio FX-850 / 870</b><span>FX-850P, FX-870P and similar</span></div>
+      <div class="machine"><b>TRS-80 / NEC</b><span>Model 100, PC-8201</span></div>
+      <div class="machine"><b>UART Other</b><span>Any computer with a TTL or RS-232 UART</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <div>
+      <h2>A little bit of magic</h2>
+      <p>SerComet began as a way to get programs into a Sharp PC-1600 without typing them in. It grew into a small workshop for pocket computers.</p>
+      <ul class="ticks">
+        <li>Saver/Loader programs for the PC-1500 and PC-1600 included</li>
+        <li>Terminal window for quick experiments</li>
+        <li>Protects you from wrong file names and half-sent files</li>
+        <li>Remembers your settings for every computer</li>
+      </ul>
+    </div>
+    <img src="img/imag1.jpg" alt="A Sharp pocket computer connected by a glowing cable to a PC, in a wizard's workshop">
+  </div>
+</section>
+
+<section class="alt cta">
+  <div class="wrap">
+    <h2>Ready to try it?</h2>
+    <p>Downloads, instructions and the source code live on GitHub. Questions, ideas and bug reports are always welcome.</p>
+    <div class="btns">
+      <a class="btn primary" href="https://github.com/Ante1000/SerComet_transfer_tool_for_pockets">SerComet on GitHub</a>
+      <a class="btn ghost" href="mailto:alex.f4vts@gmail.com">Contact the author</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span>&copy; 2026 Alex Matczewski F4VTS &middot; Free for personal, non-commercial and educational use</span>
+    <span><a href="https://github.com/Ante1000">GitHub</a> &middot; <a href="https://www.youtube.com/@anteamber">YouTube</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
