@@ -21,6 +21,11 @@
   li a{color:var(--ecru);font-weight:800;border-bottom:2px solid rgba(243,234,210,.35)}
   li a:hover{border-bottom-color:var(--gold);color:#fff}
   li span{color:var(--ecru2)}
+  ul.sub{margin-top:10px}
+  ul.sub li{font-size:1.05rem;margin-bottom:8px;line-height:1.5;padding-left:26px}
+  ul.sub li::before{width:13px;height:13px;top:.35em}
+  ul.sub li a{font-weight:600}
+  li b{font-weight:800}
   .drift{animation:drift 800s linear infinite}
   @keyframes drift{to{transform:translate(-1600px,1000px)}}
   footer{margin-top:50px;color:var(--ecru2);font-size:.95rem}
@@ -33,13 +38,9 @@
   <h1>Alex F4VTS<br><span style="font-size:calc(1em - 16pt)">Projects page</span></h1>
   <ul>
     <li><a href="sercomet/">SerComet</a> &ndash; <span>transfer tool and simple file manager for saving and loading BASIC programs between pocket computers and a Windows PC. (<a href="https://github.com/Ante1000/SerComet_transfer_tool_for_pockets">GitHub</a>)</span></li>
-    <li><a href="https://github.com/Ante1000/Sharp_PC-1500_Software_UART">Sharp PC-1500 Software UART</a> &ndash; <span>a bit-banged serial port (SERIN / SEROUT, 1200 to 19200 bps) for the PC-1500(A) without any interface or modification.</span></li>
-    <li><a href="https://github.com/Ante1000/Sharp_PC-1600_Software_UART">Sharp PC-1600 Software UART</a> &ndash; <span>the same idea for the Z-80 PC-1600: a software UART from 300 to 38400 bps on two lines of the system connector.</span></li>
+    <li><b>Software UART</b> &ndash; <span>software-based serial port (UART) without hardware interface or modification</span><ul class="sub"><li>for the PC-1500(A) and Tandy PC-2 (<a href="https://github.com/Ante1000/Sharp_PC-1500_Software_UART">GitHub</a>)</li><li>for the Sharp PC-1600 (<a href="https://github.com/Ante1000/Sharp_PC-1600_Software_UART">GitHub</a>)</li></ul></li>
     <li><a href="https://github.com/Ante1000/Sharp_PC-1500_I2C_interface">Sharp PC-1500 I2C interface</a> &ndash; <span>a machine-language I2C bus master for the PC-1500(A), with an Arduino tester.</span></li>
-    <li><a href="https://github.com/Ante1000/Sharp_PC-1500_GAME_Bastions_of_Retrocomputing">Bastions of Retrocomputing, PC-1500</a> &ndash; <span>a strategy game in BASIC about Tech Priests defending retro-computing bastions, for the PC-1500, PC-1500A and Tandy PC-2.</span></li>
-    <li><a href="https://github.com/Ante1000/Sharp_PC-1600_GAME_Bastions_of_Retrocomputing">Bastions of Retrocomputing, PC-1600</a> &ndash; <span>the same game for the Sharp PC-1600.</span></li>
-    <li><a href="https://github.com/Ante1000/Sharp_PC-1360_GAME_Bastions_of_Retrocomputing">Bastions of Retrocomputing, PC-1360</a> &ndash; <span>the game ported to the slower Sharp PC-1360 (4 lines of 24 characters).</span></li>
-    <li><a href="https://github.com/Ante1000/Sharp_PC-E500_GAME_Bastions_of_Retrocomputing">Bastions of Retrocomputing, PC-E500</a> &ndash; <span>the game for the Sharp PC-E500 / PC-E500S.</span></li>
+    <li><b>Bastions of Retrocomputing</b> &ndash; <span>a strategy game in BASIC about Tech Priests defending retro-computing bastions held by the Cathodic Church</span><ul class="sub"><li>for the PC-1500(A) and Tandy PC-2 (<a href="https://github.com/Ante1000/Sharp_PC-1500_GAME_Bastions_of_Retrocomputing">GitHub</a>)</li><li>for the Sharp PC-1600 (<a href="https://github.com/Ante1000/Sharp_PC-1600_GAME_Bastions_of_Retrocomputing">GitHub</a>)</li><li>for the Sharp PC-E500(S) (<a href="https://github.com/Ante1000/Sharp_PC-E500_GAME_Bastions_of_Retrocomputing">GitHub</a>)</li><li>for the Sharp PC-1350..60 (<a href="https://github.com/Ante1000/Sharp_PC-1360_GAME_Bastions_of_Retrocomputing">GitHub</a>)</li></ul></li>
     <li><a href="https://github.com/Ante1000/UHSDR">UHSDR</a> &ndash; <span>a fork of the open-source firmware of UHSDR software-defined amateur-radio transceivers.</span></li>
   </ul>
   <footer>All repositories: <a href="https://github.com/Ante1000">github.com/Ante1000</a> &middot; YouTube: <a href="https://www.youtube.com/@anteamber">@anteamber</a></footer>
