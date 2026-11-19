@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SerComet – file transfer tool for PC and pocket computers</title>
+<meta name="description" content="SerComet moves BASIC programs between your PC and Sharp, Casio, TRS-80 and NEC pocket computers over a serial port. Free for personal, non-commercial and educational use.">
+<meta property="og:title" content="SerComet – file transfer tool for PC and pocket computers">
+<meta property="og:description" content="Send and receive BASIC programs between a Windows PC and Sharp, Casio, TRS-80 and NEC pocket computers.">
+<meta property="og:image" content="https://ante1000.github.io/sercomet/img/imag1.jpg">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<style>
+  :root{--navy:#0a1233;--navy2:#0e1a47;--ink:#070c22;--text:#eef2ff;--muted:#a9b6d8;
+        --pink:#ff6fa8;--violet:#7a5cff;--cyan:#22d3ee;--gold:#ffc83d;--line:rgba(255,255,255,.12)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;background:var(--navy);color:var(--text);line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;position:relative}
+  .grad{background:linear-gradient(90deg,var(--pink),var(--violet) 55%,var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* header */
+  header{position:absolute;top:0;left:0;right:0;z-index:10}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:112px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:20px;font-weight:800;letter-spacing:.5px;font-size:2.9rem}
+  .brand img{width:85px;height:85px}
+  .nav nav a{margin-left:26px;font-size:.88rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .nav nav a:hover{color:#fff}
+  .nav nav a.cta{border:1px solid var(--line);border-radius:99px;padding:8px 18px;color:#fff;background:rgba(255,255,255,.06)}
+  @media(max-width:700px){.nav nav a:not(.cta){display:none}.brand{font-size:1.8rem}.brand img{width:56px;height:56px}}
+
+  /* hero */
+  .hero{position:relative;min-height:880px;padding:200px 0 60px;overflow:hidden;
+        background:radial-gradient(900px 500px at 85% 10%,rgba(122,92,255,.55),transparent 60%),
+                   radial-gradient(700px 500px at 0% 0%,rgba(255,111,168,.38),transparent 60%),
+                   radial-gradient(800px 600px at 60% 100%,rgba(34,211,238,.25),transparent 60%),var(--navy)}
+  .comet{position:absolute;right:4%;top:100px;width:520px;max-width:78vw;pointer-events:none;z-index:0;filter:drop-shadow(0 20px 60px rgba(122,92,255,.55))}
+  .stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+  .hero .grid{display:grid;grid-template-columns:1fr;position:relative;z-index:2}
+  .eyebrow{font-size:.82rem;letter-spacing:.32em;text-transform:uppercase;color:var(--cyan);margin-bottom:22px}
+  h1{font-weight:300;font-size:clamp(3rem,9vw,7.2rem);line-height:.98;letter-spacing:-.03em}
+  h1 b{font-weight:800}
+  .lead{max-width:520px;color:var(--muted);font-size:1.12rem;margin:28px 0 34px}
+  .btns{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:14px 28px;border-radius:99px;font-weight:700;font-size:.95rem;transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:linear-gradient(90deg,var(--pink),var(--violet));box-shadow:0 10px 30px rgba(122,92,255,.45)}
+  .btn.ghost{border:1px solid var(--gold);color:var(--gold)}
+
+  /* tilted devices */
+  .devices{position:relative;height:430px;margin-top:20px;z-index:2}
+  .dev{position:absolute;border-radius:18px;background:#16171d;padding:12px;box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08)}
+  .dev img{display:block;width:100%;border-radius:8px}
+  .dev.a{width:560px;max-width:70vw;left:2%;top:10px;transform:perspective(1400px) rotateY(18deg) rotateX(8deg)}
+  .dev.b{right:2%;top:-4px;width:440px;max-width:46vw;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.28);box-shadow:none;backdrop-filter:blur(3px);padding:22px 24px;transform:none}
+  .dev.b h4{font-size:calc(1.05rem + 2pt);margin-bottom:10px;color:#fff}
+  .dev.b ul{list-style:none}
+  .dev.b li{position:relative;padding-left:24px;margin-bottom:8px;color:#d6def5;font-size:calc(.93rem + 2pt)}
+  .dev.b li::before{content:"";position:absolute;left:0;top:.4em;width:15px;height:15px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffc83d' d='M12 1l3.1 7.3 7.9.7-6 5.2 1.8 7.8L12 18l-6.8 4 1.8-7.8-6-5.2 7.9-.7z'/%3E%3C/svg%3E") no-repeat center/contain}
+  @media(max-width:760px){.devices{height:300px}.dev.b{display:none}.dev.a{left:50%;margin-left:-40%;width:80%}}
+
+  /* marquee of machines */
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ink);overflow:hidden;padding:26px 0}
+  .strip .track{display:flex;gap:64px;width:max-content;animation:mv 30s linear infinite}
+  .strip span{font-size:1.3rem;font-weight:800;letter-spacing:.06em;color:#cfd7f3;white-space:nowrap;opacity:.85}
+  .strip span i{font-style:normal;color:var(--pink);margin-right:64px}
+  @keyframes mv{to{transform:translateX(-50%)}}
+
+  /* light section with wave */
+  .wave{display:block;width:100%;height:90px;background:#8ccbff}
+  .light{background:#8ccbff;color:#16204a;padding:30px 0 90px;position:relative}
+  .light h2{text-align:center;font-size:clamp(1.8rem,4vw,2.6rem);text-transform:uppercase;letter-spacing:.02em;margin-bottom:12px}
+  .light .sub{text-align:center;color:#26325f;max-width:760px;margin:0 auto 50px;font-weight:700;font-size:calc(1rem + 4pt)}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px}
+  .tile{background:#f6f0e1;border-radius:16px;padding:30px 24px;box-shadow:0 12px 34px rgba(22,32,74,.10);text-align:center;transition:transform .2s}
+  .tile:hover{transform:translateY(-5px)}
+  .tile .ic{width:58px;height:58px;border-radius:14px;margin:-60px auto 18px;display:grid;place-items:center;font-size:1.6rem;color:#fff;box-shadow:0 10px 22px rgba(0,0,0,.2)}
+  .tile:nth-child(1) .ic{background:linear-gradient(135deg,#4aa3ff,#5b6bff)}
+  .tile:nth-child(2) .ic{background:linear-gradient(135deg,#ff6f6f,#ff4f9a)}
+  .tile:nth-child(3) .ic{background:linear-gradient(135deg,#3ddc97,#22b8a8)}
+  .tile:nth-child(4) .ic{background:linear-gradient(135deg,#ffc83d,#ff9f1c)}
+  .tile h3{font-size:1.1rem;margin-bottom:8px}
+  .tile p{color:#5b6690;font-size:.94rem}
+  .tiles{margin-top:70px}
+
+  /* dark showcase */
+  .show{padding:100px 0;background:radial-gradient(700px 400px at 10% 20%,rgba(255,111,168,.25),transparent 60%),radial-gradient(700px 500px at 100% 80%,rgba(34,211,238,.2),transparent 60%),var(--navy2);position:relative;overflow:hidden}
+  .split{display:grid;grid-template-columns:1fr 1.1fr;gap:50px;align-items:center}
+  .split h2{font-size:clamp(2rem,4.4vw,3.2rem);font-weight:300;line-height:1.1;margin-bottom:20px}
+  .split h2 b{font-weight:800}
+  .split p{color:var(--muted);margin-bottom:22px}
+  .split img{width:100%;border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.55);border:1px solid var(--line)}
+  @media(max-width:800px){.split{grid-template-columns:1fr}}
+
+  /* feature bar */
+  .bar{background:var(--ink);padding:40px 0;border-top:1px solid var(--line)}
+  .bar .items{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;text-align:center}
+  .bar .it{padding:10px;border-right:1px solid var(--line);font-size:.92rem;color:var(--muted)}
+  .bar .it:last-child{border-right:0}
+  .bar .it b{display:block;color:#fff;font-size:1.5rem;margin-bottom:4px}
+  .final{text-align:center;padding:100px 0;background:var(--navy)}
+  .final h2{font-weight:300;font-size:clamp(2rem,5vw,3.6rem);margin-bottom:14px}
+  .final p{color:var(--muted);margin:0 auto 30px;max-width:560px}
+  footer{background:var(--ink);padding:30px 0 44px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer a{color:var(--gold)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="img/sercomet_icon.png" alt="">SerComet</a>
+    <nav><a href="#features">Features</a><a href="#computers">Computers</a><a href="https://www.youtube.com/@anteamber">YouTube</a><a class="cta" href="https://github.com/Ante1000/SerComet_transfer_tool_for_pockets">Get it</a></nav>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <!-- the comet of the logo as a layout element -->
+  <svg class="stars" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><polygon points="120.0,134.0 124.2,144.2 135.2,145.1 126.8,152.2 129.4,162.9 120.0,157.2 110.6,162.9 113.2,152.2 104.8,145.1 115.8,144.2" fill="#ffd95a" opacity="1"/><polygon points="900.0,77.0 903.4,85.3 912.4,86.0 905.6,91.8 907.6,100.5 900.0,95.8 892.4,100.5 894.4,91.8 887.6,86.0 896.6,85.3" fill="#fff" opacity="1"/><polygon points="1010.0,405.0 1014.0,414.5 1024.3,415.4 1016.4,422.1 1018.8,432.1 1010.0,426.8 1001.2,432.1 1003.6,422.1 995.7,415.4 1006.0,414.5" fill="#fff" opacity="1"/><polygon points="60.0,608.0 63.2,615.6 71.4,616.3 65.1,621.7 67.1,629.7 60.0,625.4 52.9,629.7 54.9,621.7 48.6,616.3 56.8,615.6" fill="#fff" opacity="1"/><polygon points="560.0,29.0 562.9,36.0 570.5,36.6 564.7,41.5 566.5,48.9 560.0,45.0 553.5,48.9 555.3,41.5 549.5,36.6 557.1,36.0" fill="#ffd95a" opacity="1"/><polygon points="250.0,57.0 250.6,59.4 253.0,60.0 250.6,60.6 250.0,63.0 249.4,60.6 247.0,60.0 249.4,59.4" fill="#fff" opacity="0.55"/><polygon points="420.0,126.0 420.8,129.2 424.0,130.0 420.8,130.8 420.0,134.0 419.2,130.8 416.0,130.0 419.2,129.2" fill="#fff" opacity="0.65"/><polygon points="700.0,55.0 701.1,58.9 705.0,60.0 701.1,61.1 700.0,65.0 698.9,61.1 695.0,60.0 698.9,58.9" fill="#fff" opacity="0.75"/><polygon points="800.0,257.0 800.6,259.4 803.0,260.0 800.6,260.6 800.0,263.0 799.4,260.6 797.0,260.0 799.4,259.4" fill="#fff" opacity="0.8500000000000001"/><polygon points="980.0,196.0 980.8,199.2 984.0,200.0 980.8,200.8 980.0,204.0 979.2,200.8 976.0,200.0 979.2,199.2" fill="#fff" opacity="0.55"/><polygon points="1100.0,85.0 1101.1,88.9 1105.0,90.0 1101.1,91.1 1100.0,95.0 1098.9,91.1 1095.0,90.0 1098.9,88.9" fill="#fff" opacity="0.65"/><polygon points="170.0,327.0 170.6,329.4 173.0,330.0 170.6,330.6 170.0,333.0 169.4,330.6 167.0,330.0 169.4,329.4" fill="#fff" opacity="0.75"/><polygon points="330.0,416.0 330.8,419.2 334.0,420.0 330.8,420.8 330.0,424.0 329.2,420.8 326.0,420.0 329.2,419.2" fill="#fff" opacity="0.8500000000000001"/><polygon points="640.0,295.0 641.1,298.9 645.0,300.0 641.1,301.1 640.0,305.0 638.9,301.1 635.0,300.0 638.9,298.9" fill="#fff" opacity="0.55"/><polygon points="1150.0,327.0 1150.6,329.4 1153.0,330.0 1150.6,330.6 1150.0,333.0 1149.4,330.6 1147.0,330.0 1149.4,329.4" fill="#fff" opacity="0.65"/><polygon points="90.0,476.0 90.8,479.2 94.0,480.0 90.8,480.8 90.0,484.0 89.2,480.8 86.0,480.0 89.2,479.2" fill="#fff" opacity="0.75"/><polygon points="470.0,555.0 471.1,558.9 475.0,560.0 471.1,561.1 470.0,565.0 468.9,561.1 465.0,560.0 468.9,558.9" fill="#fff" opacity="0.8500000000000001"/><polygon points="760.0,517.0 760.6,519.4 763.0,520.0 760.6,520.6 760.0,523.0 759.4,520.6 757.0,520.0 759.4,519.4" fill="#fff" opacity="0.55"/><polygon points="1050.0,636.0 1050.8,639.2 1054.0,640.0 1050.8,640.8 1050.0,644.0 1049.2,640.8 1046.0,640.0 1049.2,639.2" fill="#fff" opacity="0.65"/><polygon points="220.0,695.0 221.1,698.9 225.0,700.0 221.1,701.1 220.0,705.0 218.9,701.1 215.0,700.0 218.9,698.9" fill="#fff" opacity="0.75"/></svg>
+  <img class="comet" src="img/comet.png?v=4" alt="">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="eyebrow">File transfer tool &middot; Windows &middot; v1.3</div>
+        <h1>Programs<br><b class="grad">across the cable.</b></h1>
+        <p class="lead">SerComet moves BASIC programs between your PC and your pocket computer: Sharp, Casio, TRS-80, NEC and more. No cassette tape, no retyping.</p>
+        <div class="btns"><a class="btn primary" href="https://github.com/Ante1000/SerComet_transfer_tool_for_pockets">Get SerComet</a><a class="btn ghost" href="https://www.youtube.com/@anteamber">Watch on YouTube</a></div>
+      </div>
+    </div>
+    <div class="devices">
+      <div class="dev b"><div class="ui">
+        <h4>Easy transfer to/from pocket computers</h4>
+        <ul>
+          <li>PC-1500 and PC-1600 supported through a special Software UART</li>
+          <li>Works with Sharp, Casio and other pocket computers</li>
+          <li>Simple and reliable connection between PC and pocket computer</li>
+          <li>File management: customized folders, preview, drag &amp; drop</li></ul></div></div>
+      <div class="dev a"><img src="img/imag1.jpg" alt="A Sharp pocket computer connected by a glowing cable to a PC"></div>
+    </div>
+  </div>
+</div>
+
+<div class="strip"><div class="track">
+  <span>SHARP PC-1500</span><span><i>&#10022;</i>SHARP PC-1600</span><span><i>&#10022;</i>OTHER SHARP</span><span><i>&#10022;</i>CASIO FX-850 / 870</span><span><i>&#10022;</i>TRS-80 MODEL 100</span><span><i>&#10022;</i>NEC PC-8201</span><span><i>&#10022;</i>ANY UART</span><span><i>&#10022;</i></span>
+  <span>SHARP PC-1500</span><span><i>&#10022;</i>SHARP PC-1600</span><span><i>&#10022;</i>OTHER SHARP</span><span><i>&#10022;</i>CASIO FX-850 / 870</span><span><i>&#10022;</i>TRS-80 MODEL 100</span><span><i>&#10022;</i>NEC PC-8201</span><span><i>&#10022;</i>ANY UART</span><span><i>&#10022;</i></span>
+</div></div>
+
+<svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H1440V30C1200 100 980 -20 720 38C470 92 220 10 0 60Z" fill="#070c22"/></svg>
+
+<section class="light" id="features">
+  <div class="wrap">
+    <h2>What is SerComet?</h2>
+    <p class="sub">An intuitive transfer tool and simple file manager for saving and loading BASIC programs between pocket computers and a Windows PC.</p>
+    <div class="tiles">
+      <div class="tile"><div class="ic">&#8646;</div><h3>Send &amp; receive</h3><p>Pick a program and press Send, or start Save on the pocket computer and SerComet files it for you.</p></div>
+      <div class="tile"><div class="ic">&#9998;</div><h3>Built-in converter</h3><p>Edit your BASIC as plain text on the PC; SerComet converts it to the machine's own format and back.</p></div>
+      <div class="tile"><div class="ic">&#9888;</div><h3>Helps when it fails</h3><p>Garbage on the line? It tells you the baud rate is wrong and whether to raise or lower it.</p></div>
+      <div class="tile"><div class="ic">&#9733;</div><h3>Free to use</h3><p>Free for personal, non-commercial and educational use.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="show" id="computers">
+  <div class="wrap split">
+    <div>
+      <h2>One tool,<br><b class="grad">many machines.</b></h2>
+      <p>Choose your computer in the Target box and SerComet sets up the right way to talk to it. Saver/Loader programs for the PC-1500 and PC-1600 are included.</p>
+      <div class="btns"><a class="btn primary" href="https://github.com/Ante1000/SerComet_transfer_tool_for_pockets">See it on GitHub</a></div>
+    </div>
+    <img src="img/pockets.jpg" alt="Pocket computers connected to SerComet">
+  </div>
+</section>
+
+<div class="bar"><div class="wrap items">
+  <div class="it"><b>6</b>kinds of computers</div>
+  <div class="it"><b>115200</b>baud at the top end</div>
+  <div class="it"><b>TTL &amp; RS-232</b>both supported</div>
+  <div class="it"><b>Drag &amp; drop</b>your programs in</div>
+  <div class="it"><b>Free</b>for personal use</div>
+</div></div>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Ready to <b class="grad">try it?</b></h2>
+    <p>Downloads, instructions and the source code live on GitHub. Questions, ideas and bug reports are always welcome.</p>
+    <div class="btns" style="justify-content:center"><a class="btn primary" href="https://github.com/Ante1000/SerComet_transfer_tool_for_pockets">SerComet on GitHub</a><a class="btn ghost" href="mailto:alex.f4vts@gmail.com">Contact the author</a></div>
+  </div>
+</section>
+
+<footer><div class="wrap foot"><span>&copy; 2026 Alex Matczewski F4VTS &middot; Free for personal, non-commercial and educational use</span><span><a href="https://github.com/Ante1000">GitHub</a> &middot; <a href="https://www.youtube.com/@anteamber">YouTube</a></span></div></footer>
+</body>
+</html>
