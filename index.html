@@ -29,7 +29,8 @@
   .drift{animation:drift 800s linear infinite}
   @keyframes drift{to{transform:translate(-1600px,1000px)}}
   ul.projects > li{display:grid;grid-template-columns:1fr 230px;gap:26px;align-items:start}
-  ul.projects > li > img{width:230px;border-radius:12px;border:1px solid rgba(243,234,210,.25);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+  ul.projects > li:first-child > img{margin-top:0}
+  ul.projects > li > img{margin-top:40px;width:230px;border-radius:12px;border:1px solid rgba(243,234,210,.25);box-shadow:0 10px 30px rgba(0,0,0,.4)}
   @media(max-width:700px){ul.projects > li{grid-template-columns:1fr}ul.projects > li > img{width:100%;max-width:320px}}
   footer{margin-top:50px;color:var(--ecru2);font-size:.95rem}
   footer a{color:var(--ecru)}
