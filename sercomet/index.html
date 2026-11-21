@@ -92,6 +92,13 @@
   .split img{width:100%;border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.55);border:1px solid var(--line)}
   @media(max-width:800px){.split{grid-template-columns:1fr}}
 
+  .split.rev{grid-template-columns:.8fr 1fr}
+  .split.rev img{max-width:520px;justify-self:center}
+  .pts{list-style:none;margin:0 0 22px;padding:0}
+  .pts li{position:relative;padding-left:24px;margin-bottom:10px;color:var(--muted)}
+  .pts li::before{content:"";position:absolute;left:0;top:.4em;width:15px;height:15px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffc83d' d='M12 1l3.1 7.3 7.9.7-6 5.2 1.8 7.8L12 18l-6.8 4 1.8-7.8-6-5.2 7.9-.7z'/%3E%3C/svg%3E") no-repeat center/contain}
+  @media(max-width:800px){.split.rev{grid-template-columns:1fr}}
+
   /* feature bar */
   .bar{background:var(--ink);padding:40px 0;border-top:1px solid var(--line)}
   .bar .items{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;text-align:center}
@@ -156,6 +163,20 @@
       <div class="tile"><div class="ic">&#9998;</div><h3>Built-in converter</h3><p>Edit your BASIC as plain text on the PC; SerComet converts it to the machine's own format and back.</p></div>
       <div class="tile"><div class="ic">&#9888;</div><h3>Helps when it fails</h3><p>Garbage on the line? It tells you the baud rate is wrong and whether to raise or lower it.</p></div>
       <div class="tile"><div class="ic">&#9733;</div><h3>Free to use</h3><p>Free for personal, non-commercial and educational use.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="show" id="screenshot">
+  <div class="wrap split rev">
+    <img src="img/screen1a.jpg" alt="The SerComet window: port settings, target computer, file list and log">
+    <div>
+      <h2>Everything<br><b class="grad">in one window.</b></h2>
+      <ul class="pts">
+        <li>Port, speed and target computer in one place; a TEST button checks the port</li>
+        <li>File list with preview, drag &amp; drop, Check Basic, Renumber and Remove REM</li>
+        <li>A log that tells you what happened and what to try next</li>
+      </ul>
     </div>
   </div>
 </section>
